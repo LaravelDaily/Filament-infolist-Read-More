@@ -2,6 +2,9 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Infolists\Infolist;
+use App\Infolists\Components\PostBody;
+use Filament\Infolists\Components\TextEntry;
 use App\Filament\Resources\PostResource\Pages;
 use App\Filament\Resources\PostResource\RelationManagers;
 use App\Models\Post;
@@ -49,6 +52,18 @@ class PostResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+            ]);
+    }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                TextEntry::make('title')
+                    ->columnSpanFull(),
+                PostBody::make('body')
+                    ->maxLength(50)
+                    ->columnSpanFull(),
             ]);
     }
 
